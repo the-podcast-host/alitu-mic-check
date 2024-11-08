@@ -1,11 +1,10 @@
-import Link from "next/link";
 import Layout from "../components/Layout";
 
 const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
+  <Layout>
+    <h1>Mic Check</h1>
     <p>
-      <Link href="/about">About</Link>
+      Testing one two 🎤 Is this thing on? Let's make sure you're setup to sound your best!
     </p>
   </Layout>
 );
