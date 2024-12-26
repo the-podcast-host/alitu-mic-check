@@ -1,5 +1,7 @@
 import Layout from '../components/Layout';
 import { Heading, Container, Text } from '@chakra-ui/react';
+import MicSelector from '../components/MicSelector';
+
 const IndexPage = () => (
   <Layout>
     <Container centerContent maxW="lg">
@@ -10,6 +12,9 @@ const IndexPage = () => (
         Testing one two 🎤 Is this thing on? Let's make sure you're setup to
         sound your best!
       </Text>
+    </Container>
+    <Container mt="16" maxW="sm">
+      <MicSelector />
     </Container>
   </Layout>
 );
