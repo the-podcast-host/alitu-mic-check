@@ -13,6 +13,7 @@ export function createInitialState(initialState: State): State {
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'selected_audio_input':
+      console.log('MediaDevice:', action.payload);
       return {
         ...state,
         selectedAudioInput: action.payload,

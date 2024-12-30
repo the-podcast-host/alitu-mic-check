@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import { Heading, Container, Text } from '@chakra-ui/react';
 import { reducer, createInitialState } from '../reducers/indexReducer';
 import AudioInputSelector from '../components/AudioInputSelector';
+import SoundMeter from '../components/SoundMeter';
 
 const IndexPage = () => {
   const [state, dispatch] = useReducer(
@@ -31,6 +32,7 @@ const IndexPage = () => {
           selected={state.selectedAudioInput}
           onSelect={handleAudioInputSelected}
         />
+        <SoundMeter deviceId={state.selectedAudioInput?.deviceId} />
       </Container>
     </Layout>
   );
