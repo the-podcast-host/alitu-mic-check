@@ -1,11 +1,13 @@
 type State = {
   selectedAudioInput: MediaDeviceInfo | null;
   mediaStream: MediaStream | null;
+  audioURL: string | null;
 };
 
 type Action =
   | { type: 'selected_audio_input'; payload: MediaDeviceInfo }
-  | { type: 'set_media_stream'; payload: MediaStream };
+  | { type: 'set_media_stream'; payload: MediaStream }
+  | { type: 'create_recording'; payload: string };
 
 export function createInitialState(initialState: State): State {
   return {
@@ -26,6 +28,12 @@ export function reducer(state: State, action: Action): State {
       return {
         ...state,
         mediaStream: action.payload,
+      };
+    case 'create_recording':
+      console.log('audioURL:', action.payload);
+      return {
+        ...state,
+        audioURL: action.payload,
       };
     default:
       return state;

@@ -4,12 +4,13 @@ import { Heading, Container, Text } from '@chakra-ui/react';
 import { reducer, createInitialState } from '../reducers/indexReducer';
 import AudioInputSelector from '../components/AudioInputSelector';
 import SoundMeter from '../components/SoundMeter';
+import Recorder from '../components/Recorder';
 import getMediaStream from '../utils/getMediaStream';
 
 const IndexPage = () => {
   const [state, dispatch] = useReducer(
     reducer,
-    { selectedAudioInput: null, mediaStream: null },
+    { selectedAudioInput: null, mediaStream: null, audioURL: null },
     createInitialState,
   );
 
@@ -24,6 +25,11 @@ const IndexPage = () => {
       const mediaStream = await getMediaStream(audioInput.deviceId);
       dispatch({ type: 'set_media_stream', payload: mediaStream });
     }
+  }
+
+  function handleRecorderStop(blob: Blob) {
+    const audioURL = URL.createObjectURL(blob);
+    dispatch({ type: 'create_recording', payload: audioURL });
   }
 
   return (
@@ -43,6 +49,7 @@ const IndexPage = () => {
           onSelect={handleAudioInputSelected}
         />
         <SoundMeter stream={state.mediaStream} />
+        <Recorder stream={state.mediaStream} onStop={handleRecorderStop} />
       </Container>
     </Layout>
   );
