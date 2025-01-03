@@ -1,23 +1,21 @@
 import { useEffect, useRef } from 'react';
 import { Box } from '@chakra-ui/react';
-import useMediaStream from '../hooks/useMediaStream';
 import useAnalyserNode from '../hooks/useAnalyserNode';
 import getRMS from '../utils/getRMS';
 
 const MIN_DB = -60;
 
 interface Props {
-  deviceId?: string;
+  stream: MediaStream | null;
 }
 
-const SoundMeter = ({ deviceId }: Props) => {
+const SoundMeter = ({ stream }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameIdRef = useRef<number>(0);
   const audioDataRef = useRef<Uint8Array>();
 
-  const mediaStream = useMediaStream(deviceId);
-  const analyserNode = useAnalyserNode(mediaStream);
+  const analyserNode = useAnalyserNode(stream);
 
   const draw = () => {
     const canvas = canvasRef.current as HTMLCanvasElement;

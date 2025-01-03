@@ -1,8 +1,11 @@
 type State = {
   selectedAudioInput: MediaDeviceInfo | null;
+  mediaStream: MediaStream | null;
 };
 
-type Action = { type: 'selected_audio_input'; payload: MediaDeviceInfo };
+type Action =
+  | { type: 'selected_audio_input'; payload: MediaDeviceInfo }
+  | { type: 'set_media_stream'; payload: MediaStream };
 
 export function createInitialState(initialState: State): State {
   return {
@@ -17,6 +20,12 @@ export function reducer(state: State, action: Action): State {
       return {
         ...state,
         selectedAudioInput: action.payload,
+      };
+    case 'set_media_stream':
+      console.log('MediaStream:', action.payload);
+      return {
+        ...state,
+        mediaStream: action.payload,
       };
     default:
       return state;

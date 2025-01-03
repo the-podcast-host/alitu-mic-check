@@ -4,16 +4,26 @@ import { Heading, Container, Text } from '@chakra-ui/react';
 import { reducer, createInitialState } from '../reducers/indexReducer';
 import AudioInputSelector from '../components/AudioInputSelector';
 import SoundMeter from '../components/SoundMeter';
+import getMediaStream from '../utils/getMediaStream';
 
 const IndexPage = () => {
   const [state, dispatch] = useReducer(
     reducer,
-    { selectedAudioInput: null },
+    { selectedAudioInput: null, mediaStream: null },
     createInitialState,
   );
 
-  function handleAudioInputSelected(audioInput: MediaDeviceInfo) {
+  async function handleAudioInputSelected(audioInput: MediaDeviceInfo) {
     dispatch({ type: 'selected_audio_input', payload: audioInput });
+
+    if (state.mediaStream) {
+      state.mediaStream.getTracks().forEach((track) => track.stop());
+    }
+
+    if (audioInput) {
+      const mediaStream = await getMediaStream(audioInput.deviceId);
+      dispatch({ type: 'set_media_stream', payload: mediaStream });
+    }
   }
 
   return (
@@ -32,7 +42,7 @@ const IndexPage = () => {
           selected={state.selectedAudioInput}
           onSelect={handleAudioInputSelected}
         />
-        <SoundMeter deviceId={state.selectedAudioInput?.deviceId} />
+        <SoundMeter stream={state.mediaStream} />
       </Container>
     </Layout>
   );

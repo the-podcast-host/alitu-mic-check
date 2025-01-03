@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useAnalyserNode = (mediaStream?: MediaStream) => {
+const useAnalyserNode = (mediaStream?: MediaStream | null) => {
   const [audioContext, setAudioContext] = useState<AudioContext>();
   const [analyserNode, setAnalyserNode] = useState<AnalyserNode>();
 
