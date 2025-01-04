@@ -18,7 +18,7 @@ const Layout = ({ children, title = 'Alitu Mic Check' }: Props) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <ChakraProvider value={system}>
-      <Flex as="header" backgroundColor="purple" padding={6}>
+      <Flex as="header" backgroundColor="purple.500" padding={6}>
         <Image src={Logo} alt="Alitu"></Image>
       </Flex>
       {children}

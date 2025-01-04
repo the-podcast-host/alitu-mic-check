@@ -5,12 +5,14 @@ import { reducer, createInitialState } from '../reducers/indexReducer';
 import AudioInputSelector from '../components/AudioInputSelector';
 import SoundMeter from '../components/SoundMeter';
 import Recorder from '../components/Recorder';
+import Downloader from '../components/Downloader';
+
 import getMediaStream from '../utils/getMediaStream';
 
 const IndexPage = () => {
   const [state, dispatch] = useReducer(
     reducer,
-    { selectedAudioInput: null, mediaStream: null, audioURL: null },
+    { selectedAudioInput: null, mediaStream: null, blob: null },
     createInitialState,
   );
 
@@ -28,8 +30,7 @@ const IndexPage = () => {
   }
 
   function handleRecorderStop(blob: Blob) {
-    const audioURL = URL.createObjectURL(blob);
-    dispatch({ type: 'create_recording', payload: audioURL });
+    dispatch({ type: 'create_recording', payload: blob });
   }
 
   return (
@@ -50,6 +51,7 @@ const IndexPage = () => {
         />
         <SoundMeter stream={state.mediaStream} />
         <Recorder stream={state.mediaStream} onStop={handleRecorderStop} />
+        {state.blob && <Downloader blob={state.blob}/>}
       </Container>
     </Layout>
   );
