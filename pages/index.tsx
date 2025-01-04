@@ -5,8 +5,8 @@ import { reducer, createInitialState } from '../reducers/indexReducer';
 import AudioInputSelector from '../components/AudioInputSelector';
 import SoundMeter from '../components/SoundMeter';
 import Recorder from '../components/Recorder';
+import Player from '../components/Player';
 import Downloader from '../components/Downloader';
-
 import getMediaStream from '../utils/getMediaStream';
 
 const IndexPage = () => {
@@ -51,7 +51,8 @@ const IndexPage = () => {
         />
         <SoundMeter stream={state.mediaStream} />
         <Recorder stream={state.mediaStream} onStop={handleRecorderStop} />
-        {state.blob && <Downloader blob={state.blob}/>}
+        <Player audio={state.blob} />
+        {state.blob && <Downloader blob={state.blob} />}
       </Container>
     </Layout>
   );
