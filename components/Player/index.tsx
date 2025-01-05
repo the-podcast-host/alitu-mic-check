@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { PlayerProvider } from './PlayerContext';
 import PlayerButton from './PlayerButton';
+import PlayerTransport from './PlayerTransport';
 
 interface Props {
   audio: Blob | null;
@@ -9,8 +10,9 @@ interface Props {
 const Player = ({ audio }: Props) => {
   return (
     <PlayerProvider audio={audio}>
-      <Box mt={16}>
+      <Box display="flex" mt={16}>
         <PlayerButton />
+        <PlayerTransport />
       </Box>
     </PlayerProvider>
   );

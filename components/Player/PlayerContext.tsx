@@ -1,24 +1,24 @@
-import {
-  createContext,
-  Dispatch,
-  PropsWithChildren,
-  useEffect,
-  useReducer,
-} from 'react';
+import { createContext, Dispatch, PropsWithChildren, useReducer } from 'react';
+import useAudioElement from '../../hooks/useAudioElement';
 
 type PlayerState = {
   playing: boolean;
   audioElement: HTMLAudioElement | null;
+  audioPlaying: boolean;
+  audioCurrentTime: number;
 };
 
-type PlayerAction =
-  | { type: 'play' }
-  | { type: 'pause' }
-  | { type: 'set_audio'; payload: HTMLAudioElement | null };
+export type PlayerAction =
+  | { type: 'set_playing'; payload: boolean }
+  | { type: 'set_audio'; payload: HTMLAudioElement | null }
+  | { type: 'set_audio_playing'; payload: boolean }
+  | { type: 'set_audio_time'; payload: number };
 
 const defaultPlayerState: PlayerState = {
   playing: false,
   audioElement: null,
+  audioPlaying: false,
+  audioCurrentTime: 0,
 };
 
 const defaultDispatch: Dispatch<PlayerAction> = () => {
@@ -36,20 +36,26 @@ function createInitialState(
 
 function reducer(state: PlayerState, action: PlayerAction) {
   switch (action.type) {
-    case 'play':
+    case 'set_playing':
       return {
         ...state,
-        playing: true,
-      };
-    case 'pause':
-      return {
-        ...state,
-        playing: false,
+        playing: action.payload,
       };
     case 'set_audio':
       return {
         ...state,
         audioElement: action.payload,
+      };
+    case 'set_audio_playing':
+      return {
+        ...state,
+        playing: action.payload,
+        audioPlaying: action.payload,
+      };
+    case 'set_audio_time':
+      return {
+        ...state,
+        audioCurrentTime: action.payload,
       };
     default:
       return {
@@ -73,15 +79,7 @@ export function PlayerProvider({ audio, children }: PropsWithChildren<Props>) {
     createInitialState,
   );
 
-  useEffect(() => {
-    if (audio) {
-      const audioElement = document.createElement('audio');
-      audioElement.src = URL.createObjectURL(audio);
-      dispatch({ type: 'set_audio', payload: audioElement });
-    } else if (state.audioElement) {
-      dispatch({ type: 'set_audio', payload: null });
-    }
-  }, [audio]);
+  useAudioElement(audio, state.audioElement, state.playing, dispatch);
 
   return (
     <PlayerContext.Provider value={{ ...state }}>
