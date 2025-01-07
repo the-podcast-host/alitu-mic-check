@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { createListCollection, SelectValueChangeDetails } from '@chakra-ui/react';
 import {
   SelectRoot,
   SelectLabel,
@@ -6,9 +6,7 @@ import {
   SelectValueText,
   SelectContent,
   SelectItem,
-  createListCollection,
-  SelectValueChangeDetails,
-} from '@chakra-ui/react';
+} from './ui/select';
 import useAudioInputs from '../hooks/useAudioInputs';
 
 interface Props {

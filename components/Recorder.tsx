@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { FaCircle, FaSquare } from 'react-icons/fa6';
+import { Button } from './ui/button';
 import useMediaRecorder from '../hooks/useMediaRecorder';
 
 interface Props {

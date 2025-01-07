@@ -1,5 +1,6 @@
-import { Box, Button, Link } from '@chakra-ui/react';
+import { Box, Link } from '@chakra-ui/react';
 import { FaDownload } from 'react-icons/fa6';
+import { Button } from './ui/button';
 
 interface Props {
   blob: Blob;
