@@ -4,6 +4,7 @@ import useAnalyserNode from '../hooks/useAnalyserNode';
 import getRMS from '../utils/getRMS';
 
 const MIN_DB = -60;
+const SMOOTHING_FACTOR = 0.2;
 
 interface Props {
   stream: MediaStream | null;
@@ -14,12 +15,14 @@ const SoundMeter = ({ stream }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameIdRef = useRef<number>(0);
   const audioDataRef = useRef<Uint8Array>();
+  const prevValueRef = useRef(0);
 
   const analyserNode = useAnalyserNode(stream);
 
   const draw = () => {
     const canvas = canvasRef.current as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
+    const prevValue = prevValueRef.current;
 
     if (ctx && analyserNode && audioDataRef.current) {
       const audioData = audioDataRef.current;
@@ -31,7 +34,10 @@ const SoundMeter = ({ stream }: Props) => {
       const clamped = Math.max(MIN_DB, Math.min(0, dB));
 
       const percentage = (clamped - MIN_DB) / (0 - MIN_DB);
-      const value = Math.round(percentage * width);
+      const currentValue = Math.round(percentage * width);
+
+      const value = prevValue + (currentValue - prevValue) * SMOOTHING_FACTOR;
+      prevValueRef.current = value;
 
       ctx.clearRect(0, 0, width, height);
 
