@@ -19,7 +19,13 @@ const useMediaRecorder = (stream: MediaStream | null) => {
   useEffect(() => {
     if (!stream) return;
 
-    mediaRecorderRef.current = new MediaRecorder(stream);
+    // Prefer opus codec in webm container
+    const options = {
+      ...(MediaRecorder.isTypeSupported('audio/webm;codecs=opus') && { mimeType: 'audio/webm;codecs=opus'})
+    };
+
+    MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+    mediaRecorderRef.current = new MediaRecorder(stream, options);
     const mediaRecorder = mediaRecorderRef.current;
     console.log('MediaRecorder:', mediaRecorder);
 

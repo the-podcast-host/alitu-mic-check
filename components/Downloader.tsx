@@ -9,7 +9,9 @@ interface Props {
 const Downloader = ({ blob }: Props) => {
   const url = URL.createObjectURL(blob);
   const filename = 'Alitu Mic Check';
-  const extension = blob.type.split('/').pop();
+
+  const match = blob.type.match(/audio\/([^;]+)/);
+  const extension = match?.[1] ?? '';
 
   return (
     <Box my={8}>
