@@ -21,6 +21,7 @@ const PlayerButton = ({}: Props) => {
     <IconButton
       color="purple.500"
       bg="gray.200"
+      borderRadius="lg"
       _hover={{
         bg: 'gray.100',
         color: 'purple.400',

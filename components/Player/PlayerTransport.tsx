@@ -10,7 +10,7 @@ const PlayerTransport = () => {
       ml={4}
       p={2}
       bg="gray.200"
-      borderRadius="l2"
+      borderRadius="lg"
       alignItems="center"
     >
       <PlayerProgress />

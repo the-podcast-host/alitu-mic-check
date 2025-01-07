@@ -4,6 +4,8 @@ const config = defineConfig({
   theme: {
     tokens: {
       colors: {
+        text: { value: '#455265' },
+        'text-light': { value: '#505E71' },
         purple: {
           50: { value: '#F1E7FD' },
           100: { value: '#DAC5FA' },

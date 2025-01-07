@@ -39,7 +39,7 @@ const IndexPage = () => {
         <Heading as="h1" size="6xl" paddingTop={16}>
           Mic Check
         </Heading>
-        <Text textAlign="center" textStyle="lg" fontWeight="medium">
+        <Text textAlign="center" textStyle="lg" fontWeight="medium" color="text">
           Testing one two 🎤 Is this thing on? Let's make sure you're setup to
           sound your best!
         </Text>

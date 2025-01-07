@@ -1,5 +1,5 @@
 import { Box, Link } from '@chakra-ui/react';
-import { FaDownload } from 'react-icons/fa6';
+import { FiDownload } from "react-icons/fi";
 import { Button } from './ui/button';
 
 interface Props {
@@ -15,7 +15,7 @@ const Downloader = ({ blob }: Props) => {
     <Box my={8}>
       <Link display="block" href={url} download={`${filename}.${extension}`}>
         <Button size="lg" width="100%" colorPalette="purple">
-          <FaDownload />
+          <FiDownload />
           Download
         </Button>
       </Link>
