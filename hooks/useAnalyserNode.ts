@@ -14,6 +14,11 @@ const useAnalyserNode = (mediaStream?: MediaStream | null) => {
 
   useEffect(() => {
     if (!audioContext || !mediaStream) return;
+
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+
     const analyser = audioContext?.createAnalyser();
     const streamSource = audioContext?.createMediaStreamSource(mediaStream);
 
