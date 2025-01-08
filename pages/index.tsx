@@ -39,7 +39,12 @@ const IndexPage = () => {
         <Heading as="h1" size="6xl" paddingTop={16}>
           Mic Check
         </Heading>
-        <Text textAlign="center" textStyle="lg" fontWeight="medium" color="text">
+        <Text
+          textAlign="center"
+          textStyle="lg"
+          fontWeight="medium"
+          color="text"
+        >
           Testing one two 🎤 Is this thing on? Let's make sure you're setup to
           sound your best!
         </Text>
@@ -49,9 +54,11 @@ const IndexPage = () => {
           selected={state.selectedAudioInput}
           onSelect={handleAudioInputSelected}
         />
-        <SoundMeter stream={state.mediaStream} />
-        <Recorder stream={state.mediaStream} onStop={handleRecorderStop} />
-        <Player audio={state.blob} />
+        {state.mediaStream && <SoundMeter stream={state.mediaStream} />}
+        {state.mediaStream && (
+          <Recorder stream={state.mediaStream} onStop={handleRecorderStop} />
+        )}
+        {state.blob && <Player audio={state.blob} />}
         {state.blob && <Downloader blob={state.blob} />}
       </Container>
     </Layout>
