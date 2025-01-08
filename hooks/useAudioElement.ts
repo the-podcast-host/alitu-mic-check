@@ -1,5 +1,7 @@
 import { Dispatch, useEffect, useState } from 'react';
 import type { PlayerAction } from '../components/Player/PlayerContext';
+import getAudioDuration from '../utils/getAudioDuration';
+
 const useAudioElement = (
   audio: Blob | null,
   audioElement: HTMLAudioElement | null,
@@ -33,6 +35,26 @@ const useAudioElement = (
       audioElement.onended = () => {
         clearInterval(intervalID);
         dispatch({ type: 'set_audio_playing', payload: false });
+      };
+
+      audioElement.onloadedmetadata = async () => {
+        if (!audioElement.duration || audioElement.duration === Infinity) {
+          try {
+            // Disable playback while calculating duration
+            dispatch({ type: 'set_disabled', payload: true });
+
+            const duration = await getAudioDuration(audio);
+            dispatch({ type: 'set_audio_duration', payload: duration });
+          } finally {
+            // Ensure playback is enabled, even without proper duration
+            dispatch({ type: 'set_disabled', payload: false });
+          }
+        } else {
+          dispatch({
+            type: 'set_audio_duration',
+            payload: audioElement.duration,
+          });
+        }
       };
 
       dispatch({ type: 'set_audio', payload: audioElement });

@@ -6,7 +6,7 @@ import { PlayerContext, PlayerDispatchContext } from './PlayerContext';
 interface Props {}
 
 const PlayerButton = ({}: Props) => {
-  const { audioPlaying } = useContext(PlayerContext);
+  const { audioPlaying, disabled } = useContext(PlayerContext);
   const dispatch = useContext(PlayerDispatchContext);
 
   function handlePlay() {
@@ -30,6 +30,7 @@ const PlayerButton = ({}: Props) => {
       // _hover has higher precedence than _active in Chakra-UI
       _active={{ bg: 'gray.300', color: 'purple.600' }}
       onClick={audioPlaying ? handlePause : handlePlay}
+      disabled={disabled}
     >
       {audioPlaying ? <FaPause /> : <FaPlay />}
     </IconButton>

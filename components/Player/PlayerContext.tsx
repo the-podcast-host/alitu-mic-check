@@ -5,20 +5,26 @@ type PlayerState = {
   playing: boolean;
   audioElement: HTMLAudioElement | null;
   audioPlaying: boolean;
+  audioDuration: number;
   audioCurrentTime: number;
+  disabled: boolean;
 };
 
 export type PlayerAction =
   | { type: 'set_playing'; payload: boolean }
   | { type: 'set_audio'; payload: HTMLAudioElement | null }
   | { type: 'set_audio_playing'; payload: boolean }
-  | { type: 'set_audio_time'; payload: number };
+  | { type: 'set_audio_duration', payload: number }
+  | { type: 'set_audio_time'; payload: number }
+  | { type: 'set_disabled'; payload: boolean };
 
 const defaultPlayerState: PlayerState = {
   playing: false,
   audioElement: null,
   audioPlaying: false,
+  audioDuration: 0,
   audioCurrentTime: 0,
+  disabled: false,
 };
 
 const defaultDispatch: Dispatch<PlayerAction> = () => {
@@ -52,10 +58,20 @@ function reducer(state: PlayerState, action: PlayerAction) {
         playing: action.payload,
         audioPlaying: action.payload,
       };
+    case 'set_audio_duration':
+      return {
+        ...state,
+        audioDuration: action.payload,
+      };
     case 'set_audio_time':
       return {
         ...state,
         audioCurrentTime: action.payload,
+      };
+    case 'set_disabled':
+      return {
+        ...state,
+        disabled: action.payload,
       };
     default:
       return {
