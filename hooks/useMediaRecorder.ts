@@ -24,7 +24,6 @@ const useMediaRecorder = (stream: MediaStream | null) => {
       ...(MediaRecorder.isTypeSupported('audio/webm;codecs=opus') && { mimeType: 'audio/webm;codecs=opus'})
     };
 
-    MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
     mediaRecorderRef.current = new MediaRecorder(stream, options);
     const mediaRecorder = mediaRecorderRef.current;
     console.log('MediaRecorder:', mediaRecorder);
@@ -38,7 +37,7 @@ const useMediaRecorder = (stream: MediaStream | null) => {
     };
 
     mediaRecorder.onerror = (e) => {
-      console.error('MediaRecorder:', e.error);
+      console.error('MediaRecorder:', e);
     };
 
     mediaRecorder.ondataavailable = (e) => {
