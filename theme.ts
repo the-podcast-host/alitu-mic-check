@@ -17,7 +17,7 @@ const config = defineConfig({
           700: { value: '#601BDF' },
           800: { value: '#5012D9' },
           900: { value: '#2F00D1' },
-        }
+        },
       },
       fonts: {
         heading: { value: 'Montserrat Variable' },

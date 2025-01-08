@@ -1,4 +1,7 @@
-import { createListCollection, SelectValueChangeDetails } from '@chakra-ui/react';
+import {
+  createListCollection,
+  SelectValueChangeDetails,
+} from '@chakra-ui/react';
 import {
   SelectRoot,
   SelectLabel,
@@ -49,7 +52,9 @@ const AudioInputSelector = ({ selected, onSelect }: Props) => {
       onValueChange={handleAudioInputSelected}
       collection={audioInputsListCollection}
     >
-      <SelectLabel color="text" fontWeight="semibold">Microphone</SelectLabel>
+      <SelectLabel color="text" fontWeight="semibold">
+        Microphone
+      </SelectLabel>
       <SelectTrigger>
         <SelectValueText placeholder="Pick your mic" />
       </SelectTrigger>

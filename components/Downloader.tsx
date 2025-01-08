@@ -1,5 +1,5 @@
 import { Box, Link } from '@chakra-ui/react';
-import { FiDownload } from "react-icons/fi";
+import { FiDownload } from 'react-icons/fi';
 import { Button } from './ui/button';
 
 interface Props {

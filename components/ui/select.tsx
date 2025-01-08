@@ -16,7 +16,12 @@ export const SelectTrigger = React.forwardRef<
   const { children, clearable, ...rest } = props;
   return (
     <ChakraSelect.Control {...rest}>
-      <ChakraSelect.Trigger ref={ref} fontWeight="semibold" borderRadius="lg" color="text-light">
+      <ChakraSelect.Trigger
+        ref={ref}
+        fontWeight="semibold"
+        borderRadius="lg"
+        color="text-light"
+      >
         {children}
       </ChakraSelect.Trigger>
       <ChakraSelect.IndicatorGroup>

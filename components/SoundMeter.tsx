@@ -69,10 +69,17 @@ const SoundMeter = ({ stream }: Props) => {
   }, [analyserNode]);
 
   return (
-    <Box my="4" ref={containerRef} css={{ '--border-radius': 'radii.lg', '--background': 'colors.gray.200' }}>
+    <Box
+      my="4"
+      ref={containerRef}
+      css={{ '--border-radius': 'radii.lg', '--background': 'colors.gray.200' }}
+    >
       <canvas
         height="24"
-        style={{ borderRadius: 'var(--border-radius)', background: 'var(--background)' }}
+        style={{
+          borderRadius: 'var(--border-radius)',
+          background: 'var(--background)',
+        }}
         ref={canvasRef}
       ></canvas>
     </Box>
