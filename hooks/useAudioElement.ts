@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from 'react';
+import { Dispatch, useEffect, useRef } from 'react';
 import type { PlayerAction } from '../components/Player/PlayerContext';
 import getAudioDuration from '../utils/getAudioDuration';
 
@@ -8,7 +8,7 @@ const useAudioElement = (
   playing: boolean,
   dispatch: Dispatch<PlayerAction>,
 ) => {
-  const [intervalID, setIntervalID] = useState<NodeJS.Timeout>();
+  const intervalID = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     if (audio) {
@@ -22,18 +22,18 @@ const useAudioElement = (
             payload: audioElement.currentTime,
           });
         }, 33);
-        setIntervalID(id);
+        intervalID.current = id;
 
         dispatch({ type: 'set_audio_playing', payload: true });
       };
 
       audioElement.onpause = () => {
-        clearInterval(intervalID);
+        clearInterval(intervalID.current);
         dispatch({ type: 'set_audio_playing', payload: false });
       };
 
       audioElement.onended = () => {
-        clearInterval(intervalID);
+        clearInterval(intervalID.current);
         dispatch({ type: 'set_audio_playing', payload: false });
       };
 
