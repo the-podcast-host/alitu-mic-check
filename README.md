@@ -20,7 +20,7 @@ To run alitu-mic-check locally you should have the following installed:
    ```
 2. Start the development server
    `     yarn dev
-    `
+ `
    The development server should now be available on [http://localhost:3000](http://localhost:3000)
 
 ## Deployment
@@ -36,3 +36,13 @@ yarn build
 ```
 
 The build will be created in the `/out` directory which can be uploaded to the host.
+
+## Development
+
+Features for future development:
+
+- Default / Auto Mic Selection
+- Additional Download Formats
+- Peak Indicator on Sound Meter
+- Audio Codec Selection
+- Recording Timer / Indicator
