@@ -1,4 +1,10 @@
-import { createContext, Dispatch, PropsWithChildren, useReducer } from 'react';
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  useEffect,
+  useReducer,
+} from 'react';
 import useAudioElement from '../../hooks/useAudioElement';
 
 type PlayerState = {
@@ -14,7 +20,7 @@ export type PlayerAction =
   | { type: 'set_playing'; payload: boolean }
   | { type: 'set_audio'; payload: HTMLAudioElement | null }
   | { type: 'set_audio_playing'; payload: boolean }
-  | { type: 'set_audio_duration', payload: number }
+  | { type: 'set_audio_duration'; payload: number }
   | { type: 'set_audio_time'; payload: number }
   | { type: 'set_disabled'; payload: boolean };
 
@@ -94,6 +100,10 @@ export function PlayerProvider({ audio, children }: PropsWithChildren<Props>) {
     defaultPlayerState,
     createInitialState,
   );
+
+  useEffect(() => {
+    dispatch({ type: 'set_audio_time', payload: 0 });
+  }, [audio, dispatch]);
 
   useAudioElement(audio, state.audioElement, state.playing, dispatch);
 
