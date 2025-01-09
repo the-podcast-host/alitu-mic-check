@@ -19,7 +19,9 @@ To run alitu-mic-check locally you should have the following installed:
    git clone https://github.com/the-podcast-host/alitu-mic-check.git && cd alitu-mic-check && yarn
    ```
 2. Start the development server
-   `    yarn dev`
+   ```sh
+   yarn dev
+   ```
    The development server should now be available on [http://localhost:3000](http://localhost:3000)
 
 ## Deployment
