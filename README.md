@@ -19,8 +19,7 @@ To run alitu-mic-check locally you should have the following installed:
    git clone https://github.com/the-podcast-host/alitu-mic-check.git && cd alitu-mic-check && yarn
    ```
 2. Start the development server
-   `     yarn dev
- `
+   `    yarn dev`
    The development server should now be available on [http://localhost:3000](http://localhost:3000)
 
 ## Deployment
@@ -46,3 +45,9 @@ Features for future development:
 - Peak Indicator on Sound Meter
 - Audio Codec Selection
 - Recording Timer / Indicator
+
+## License
+
+The code in this repository is licensed under the terms of GNU Affero General Public License v3.0 specified in the [LICENSE](./LICENSE) file.
+
+The image located at [/public/logo.svg](./public/Logo.svg) is owned by Alitu Podcast Ltd. and is used here with permission. It is not licensed under the same terms as the code and cannot be reused or redistributed without explicit permission from Alitu Podcast Ltd.
