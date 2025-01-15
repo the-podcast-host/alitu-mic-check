@@ -8,7 +8,7 @@ export const ProgressBar = React.forwardRef<
 >(function ProgressBar(props, ref) {
   return (
     <ChakraProgress.Track {...props} ref={ref}>
-      <ChakraProgress.Range />
+      <ChakraProgress.Range {...props} />
     </ChakraProgress.Track>
   );
 });

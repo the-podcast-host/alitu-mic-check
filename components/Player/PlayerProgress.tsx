@@ -15,7 +15,7 @@ const PlayerProgress = () => {
         max={audioDuration || 1}
         value={audioCurrentTime}
       >
-        <ProgressBar borderRadius="l2" transitionDuration="33" />
+        <ProgressBar borderRadius="l2" transitionDuration="fastest"/>
       </ProgressRoot>
     </Box>
   );
