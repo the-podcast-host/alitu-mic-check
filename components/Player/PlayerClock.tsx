@@ -39,7 +39,11 @@ const PlayerClock = () => {
     };
   }, [audioState, audioContext, playAt, audioPlayhead]);
 
-  return <Box fontSize="sm" fontFeatureSettings="'tnum'">{formatTime(time)}</Box>;
+  return (
+    <Box fontSize="sm" fontFeatureSettings="'tnum'">
+      {formatTime(time)}
+    </Box>
+  );
 };
 
 export default PlayerClock;

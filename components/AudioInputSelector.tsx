@@ -1,7 +1,4 @@
-import {
-  createListCollection,
-  SelectValueChangeDetails,
-} from '@chakra-ui/react';
+import { createListCollection, SelectValueChangeDetails } from '@chakra-ui/react';
 import {
   SelectRoot,
   SelectLabel,
@@ -25,11 +22,11 @@ interface ListCollectionItem {
 const AudioInputSelector = ({ selected, onSelect }: Props) => {
   const audioInputs = useAudioInputs();
   const selectedAudioInput = audioInputs.find(
-    (audioInput) => audioInput.deviceId === selected?.deviceId,
+    audioInput => audioInput.deviceId === selected?.deviceId,
   );
 
   const audioInputsListCollection = createListCollection({
-    items: audioInputs.map((audioInput) => ({
+    items: audioInputs.map(audioInput => ({
       value: audioInput.deviceId,
       label: audioInput.label,
     })),
@@ -38,7 +35,7 @@ const AudioInputSelector = ({ selected, onSelect }: Props) => {
   function handleAudioInputSelected(e: SelectValueChangeDetails) {
     const [selectedDeviceId] = e.value;
     const selectedAudioInput = audioInputs.find(
-      (audioInput) => audioInput.deviceId === selectedDeviceId,
+      audioInput => audioInput.deviceId === selectedDeviceId,
     );
 
     if (selectedAudioInput) {

@@ -4,7 +4,8 @@ import { ProgressRoot, ProgressBar } from '../ui/progress';
 import { AudioState, PlayerContext } from './PlayerContext';
 
 const PlayerProgress = () => {
-  const { audioBuffer, audioContext, audioState, playAt, audioPlayhead } = useContext(PlayerContext);
+  const { audioBuffer, audioContext, audioState, playAt, audioPlayhead } =
+    useContext(PlayerContext);
   const interval = useRef<NodeJS.Timeout>();
   const [value, setValue] = useState<number>(0);
 
@@ -25,9 +26,9 @@ const PlayerProgress = () => {
       if (interval.current) {
         clearInterval(interval.current);
       }
-    }
+    };
   }, [interval, audioContext, audioState, playAt, audioPlayhead]);
-  
+
   return (
     <Box px={3} flex="1">
       <ProgressRoot
@@ -37,7 +38,7 @@ const PlayerProgress = () => {
         max={audioBuffer?.duration ?? 1}
         value={value}
       >
-        <ProgressBar borderRadius="l2" transitionDuration="fastest"/>
+        <ProgressBar borderRadius="l2" transitionDuration="fastest" />
       </ProgressRoot>
     </Box>
   );

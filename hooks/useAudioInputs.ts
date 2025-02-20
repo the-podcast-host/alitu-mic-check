@@ -5,10 +5,7 @@ const useAudioInputs = () => {
 
   useEffect(() => {
     (async () => {
-      if (
-        !navigator.mediaDevices.getUserMedia ||
-        !navigator.mediaDevices.enumerateDevices
-      ) {
+      if (!navigator.mediaDevices.getUserMedia || !navigator.mediaDevices.enumerateDevices) {
         console.error('MediaDevices API is not supported in this browser');
       }
 
@@ -17,9 +14,7 @@ const useAudioInputs = () => {
 
       const mediaDevices = await navigator.mediaDevices.enumerateDevices();
 
-      setAudioInputs(
-        mediaDevices.filter((device) => device.kind === 'audioinput'),
-      );
+      setAudioInputs(mediaDevices.filter(device => device.kind === 'audioinput'));
     })();
   }, []);
 

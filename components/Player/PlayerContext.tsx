@@ -38,9 +38,7 @@ const defaultDispatch: Dispatch<PlayerAction> = () => {
   console.warn('PlayerContext used outside of PlayerProvider');
 };
 
-function createInitialState(
-  initialState: PlayerState = defaultPlayerState,
-): PlayerState {
+function createInitialState(initialState: PlayerState = defaultPlayerState): PlayerState {
   return {
     ...defaultPlayerState,
     ...initialState,
@@ -51,7 +49,7 @@ function reducer(state: PlayerState, action: PlayerAction) {
   switch (action.type) {
     case 'set_audio_context':
       return {
-        ...state, 
+        ...state,
         audioContext: action.payload,
       };
     case 'set_audio_buffer':
@@ -97,27 +95,20 @@ function reducer(state: PlayerState, action: PlayerAction) {
 }
 
 export const PlayerContext = createContext<PlayerState>(defaultPlayerState);
-export const PlayerDispatchContext =
-  createContext<Dispatch<PlayerAction>>(defaultDispatch);
+export const PlayerDispatchContext = createContext<Dispatch<PlayerAction>>(defaultDispatch);
 
 interface Props {
   audio: Blob | null;
 }
 
 export function PlayerProvider({ audio, children }: PropsWithChildren<Props>) {
-  const [state, dispatch] = useReducer(
-    reducer,
-    defaultPlayerState,
-    createInitialState,
-  );
+  const [state, dispatch] = useReducer(reducer, defaultPlayerState, createInitialState);
 
   useAudioContext(audio, state, dispatch);
 
   return (
     <PlayerContext.Provider value={{ ...state }}>
-      <PlayerDispatchContext.Provider value={dispatch}>
-        {children}
-      </PlayerDispatchContext.Provider>
+      <PlayerDispatchContext.Provider value={dispatch}>{children}</PlayerDispatchContext.Provider>
     </PlayerContext.Provider>
   );
 }

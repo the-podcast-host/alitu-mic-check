@@ -30,19 +30,19 @@ const useMediaRecorder = (stream: MediaStream | null) => {
     const mediaRecorder = mediaRecorderRef.current;
     console.log('MediaRecorder:', mediaRecorder);
 
-    mediaRecorder.onstart = (e) => {
+    mediaRecorder.onstart = e => {
       console.log('MediaRecorder: ', mediaRecorder.state);
     };
 
-    mediaRecorder.onstop = (e) => {
+    mediaRecorder.onstop = e => {
       console.log('MediaRecorder:', mediaRecorder.state);
     };
 
-    mediaRecorder.onerror = (e) => {
+    mediaRecorder.onerror = e => {
       console.error('MediaRecorder:', e);
     };
 
-    mediaRecorder.ondataavailable = (e) => {
+    mediaRecorder.ondataavailable = e => {
       console.log('MediaRecorder:', e.data);
       setBlob(e.data);
     };

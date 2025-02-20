@@ -20,7 +20,7 @@ const IndexPage = () => {
     dispatch({ type: 'selected_audio_input', payload: audioInput });
 
     if (state.mediaStream) {
-      state.mediaStream.getTracks().forEach((track) => track.stop());
+      state.mediaStream.getTracks().forEach(track => track.stop());
     }
 
     if (audioInput) {
@@ -39,14 +39,9 @@ const IndexPage = () => {
         <Heading as="h1" size="6xl" paddingTop={16}>
           Mic Check
         </Heading>
-        <Text
-          textAlign="center"
-          textStyle="lg"
-          fontWeight="medium"
-          color="text"
-        >
-          Testing one two 🎤 Is this thing on? Let's make sure you're setup to
-          sound your best!
+        <Text textAlign="center" textStyle="lg" fontWeight="medium" color="text">
+          Testing one two 🎤 Is this thing on? Let&apos;s make sure you&apos;re setup to sound your
+          best!
         </Text>
       </Container>
       <Container mt="16" maxW="sm">
@@ -55,9 +50,7 @@ const IndexPage = () => {
           onSelect={handleAudioInputSelected}
         />
         {state.mediaStream && <SoundMeter stream={state.mediaStream} />}
-        {state.mediaStream && (
-          <Recorder stream={state.mediaStream} onStop={handleRecorderStop} />
-        )}
+        {state.mediaStream && <Recorder stream={state.mediaStream} onStop={handleRecorderStop} />}
         {state.blob && <Player audio={state.blob} />}
         {state.blob && <Downloader blob={state.blob} />}
       </Container>
