@@ -66,7 +66,7 @@ const SoundMeter = ({ stream }: Props) => {
     return () => {
       cancelAnimationFrame(frameIdRef.current);
     };
-  }, [analyserNode]);
+  }, [analyserNode, draw]);
 
   return (
     <Box

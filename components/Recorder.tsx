@@ -27,7 +27,7 @@ const Recorder = ({ stream, onStop }: Props) => {
     if (mediaRecorder.blob) {
       onStop(mediaRecorder.blob);
     }
-  }, [mediaRecorder.blob]);
+  }, [mediaRecorder.blob, onStop]);
 
   return (
     <Box>
