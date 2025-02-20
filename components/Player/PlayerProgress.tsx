@@ -29,6 +29,13 @@ const PlayerProgress = () => {
     };
   }, [interval, audioContext, audioState, playAt, audioPlayhead]);
 
+  useEffect(() => {
+    setValue(0);
+    if (interval.current) {
+      clearInterval(interval.current);
+    }
+  }, [audioBuffer]);
+
   return (
     <Box px={3} flex="1">
       <ProgressRoot

@@ -15,7 +15,8 @@ function formatTime(seconds: number | null): string {
 }
 
 const PlayerClock = () => {
-  const { audioContext, audioState, playAt, audioPlayhead } = useContext(PlayerContext);
+  const { audioBuffer, audioContext, audioState, playAt, audioPlayhead } =
+    useContext(PlayerContext);
   const interval = useRef<NodeJS.Timeout>();
   const [time, setTime] = useState<number | null>(null);
 
@@ -39,6 +40,12 @@ const PlayerClock = () => {
     };
   }, [audioState, audioContext, playAt, audioPlayhead]);
 
+  useEffect(() => {
+    setTime(null);
+    if (interval.current) {
+      clearInterval(interval.current);
+    }
+  }, [audioBuffer]);
   return (
     <Box fontSize="sm" fontFeatureSettings="'tnum'">
       {formatTime(time)}

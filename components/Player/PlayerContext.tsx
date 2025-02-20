@@ -56,6 +56,8 @@ function reducer(state: PlayerState, action: PlayerAction) {
       return {
         ...state,
         audioBuffer: action.payload,
+        playAt: 0,
+        audioPlayhead: 0,
       };
     case 'play':
       return {
