@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 import Layout from '../components/Layout';
 import { Heading, Container, Text } from '@chakra-ui/react';
 import { reducer, createInitialState } from '../reducers/indexReducer';
@@ -29,9 +29,10 @@ const IndexPage = () => {
     }
   }
 
-  function handleRecorderStop(blob: Blob) {
+  // Memoized to prevent render loop with Recorder
+  const handleRecorderStop = useCallback((blob: Blob) => {
     dispatch({ type: 'create_recording', payload: blob });
-  }
+  }, []);
 
   return (
     <Layout>

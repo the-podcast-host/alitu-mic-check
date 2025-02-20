@@ -4,6 +4,12 @@ import { FaCircle, FaSquare } from 'react-icons/fa6';
 import { Button } from './ui/button';
 import useMediaRecorder from '../hooks/useMediaRecorder';
 
+/**
+ * Props interface for the Recorder component.
+ * @interface Props
+ * @property {MediaStream | null} stream
+ * @property {function} onStop Callback must be memoized in the parent component. to prevent render loop.
+ */
 interface Props {
   stream: MediaStream | null;
   onStop: (blob: Blob) => void;
