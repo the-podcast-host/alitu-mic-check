@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Box } from '@chakra-ui/react';
 import useAnalyserNode from '../hooks/useAnalyserNode';
 import getRMS from '../utils/getRMS';
@@ -19,7 +19,7 @@ const SoundMeter = ({ stream }: Props) => {
 
   const analyserNode = useAnalyserNode(stream);
 
-  const draw = () => {
+  const draw = useCallback(() => {
     const canvas = canvasRef.current as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
     const prevValue = prevValueRef.current;
@@ -48,7 +48,7 @@ const SoundMeter = ({ stream }: Props) => {
     }
 
     frameIdRef.current = requestAnimationFrame(draw);
-  };
+  }, [analyserNode]);
 
   useEffect(() => {
     if (containerRef.current && canvasRef.current) {
