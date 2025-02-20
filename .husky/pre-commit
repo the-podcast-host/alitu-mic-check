@@ -1,0 +1,4 @@
+echo "Running ESLint check..."
+yarn lint:staged
+echo "Running Typescript check... (this can take a few seconds)"
+yarn check-types
