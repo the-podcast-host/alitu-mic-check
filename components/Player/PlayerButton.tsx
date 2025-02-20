@@ -1,20 +1,22 @@
 import { useContext } from 'react';
 import { IconButton } from '@chakra-ui/react';
 import { FaPlay, FaPause } from 'react-icons/fa6';
-import { PlayerContext, PlayerDispatchContext } from './PlayerContext';
+import { AudioState, PlayerContext, PlayerDispatchContext } from './PlayerContext';
 
 interface Props {}
 
 const PlayerButton = ({}: Props) => {
-  const { audioPlaying, disabled } = useContext(PlayerContext);
+  const { audioState } = useContext(PlayerContext);
   const dispatch = useContext(PlayerDispatchContext);
 
+  const isPlaying = audioState === AudioState.Playing;
+
   function handlePlay() {
-    dispatch({ type: 'set_playing', payload: true });
+    dispatch({ type: 'play' });
   }
 
   function handlePause() {
-    dispatch({ type: 'set_playing', payload: false });
+    dispatch({ type: 'pause' });
   }
 
   return (
@@ -29,10 +31,9 @@ const PlayerButton = ({}: Props) => {
       }}
       // _hover has higher precedence than _active in Chakra-UI
       _active={{ bg: 'gray.300', color: 'purple.600' }}
-      onClick={audioPlaying ? handlePause : handlePlay}
-      disabled={disabled}
+      onClick={isPlaying ? handlePause : handlePlay}
     >
-      {audioPlaying ? <FaPause /> : <FaPlay />}
+      {isPlaying ? <FaPause /> : <FaPlay />}
     </IconButton>
   );
 };

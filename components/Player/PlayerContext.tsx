@@ -1,36 +1,37 @@
-import {
-  createContext,
-  Dispatch,
-  PropsWithChildren,
-  useEffect,
-  useReducer,
-} from 'react';
-import useAudioElement from '../../hooks/useAudioElement';
+import { createContext, Dispatch, PropsWithChildren, useReducer } from 'react';
+import useAudioContext from '../../hooks/useAudioContext';
 
-type PlayerState = {
-  playing: boolean;
+export enum AudioState {
+  Stopped,
+  Playing,
+  Paused,
+}
+
+export type PlayerState = {
+  audioContext: AudioContext | null;
+  audioBuffer: AudioBuffer | null;
+  audioState: AudioState;
+  playAt: number;
   audioElement: HTMLAudioElement | null;
-  audioPlaying: boolean;
-  audioDuration: number;
-  audioCurrentTime: number;
-  disabled: boolean;
+  audioPlayhead: number;
 };
 
 export type PlayerAction =
-  | { type: 'set_playing'; payload: boolean }
-  | { type: 'set_audio'; payload: HTMLAudioElement | null }
-  | { type: 'set_audio_playing'; payload: boolean }
-  | { type: 'set_audio_duration'; payload: number }
-  | { type: 'set_audio_time'; payload: number }
-  | { type: 'set_disabled'; payload: boolean };
+  | { type: 'set_audio_context'; payload: AudioContext }
+  | { type: 'set_audio_buffer'; payload: AudioBuffer }
+  | { type: 'play' }
+  | { type: 'set_play_at'; payload: number }
+  | { type: 'pause' }
+  | { type: 'set_audio_playhead'; payload: number }
+  | { type: 'stop' };
 
 const defaultPlayerState: PlayerState = {
-  playing: false,
+  audioContext: null,
+  audioBuffer: null,
+  audioState: AudioState.Stopped,
+  playAt: 0,
   audioElement: null,
-  audioPlaying: false,
-  audioDuration: 0,
-  audioCurrentTime: 0,
-  disabled: false,
+  audioPlayhead: 0,
 };
 
 const defaultDispatch: Dispatch<PlayerAction> = () => {
@@ -48,36 +49,45 @@ function createInitialState(
 
 function reducer(state: PlayerState, action: PlayerAction) {
   switch (action.type) {
-    case 'set_playing':
+    case 'set_audio_context':
       return {
-        ...state,
-        playing: action.payload,
+        ...state, 
+        audioContext: action.payload,
       };
-    case 'set_audio':
+    case 'set_audio_buffer':
       return {
         ...state,
-        audioElement: action.payload,
+        audioBuffer: action.payload,
       };
-    case 'set_audio_playing':
+    case 'play':
       return {
         ...state,
-        playing: action.payload,
-        audioPlaying: action.payload,
+        audioState: AudioState.Playing,
       };
-    case 'set_audio_duration':
+    case 'set_play_at': {
       return {
         ...state,
-        audioDuration: action.payload,
+        playAt: action.payload,
       };
-    case 'set_audio_time':
+    }
+    case 'pause':
       return {
         ...state,
-        audioCurrentTime: action.payload,
+        audioState: AudioState.Paused,
       };
-    case 'set_disabled':
+    case 'stop':
       return {
         ...state,
-        disabled: action.payload,
+        audioState: AudioState.Stopped,
+        ...(state.audioState === AudioState.Playing && {
+          playAt: 0,
+          audioPlayhead: 0,
+        }),
+      };
+    case 'set_audio_playhead':
+      return {
+        ...state,
+        audioPlayhead: action.payload,
       };
     default:
       return {
@@ -101,11 +111,7 @@ export function PlayerProvider({ audio, children }: PropsWithChildren<Props>) {
     createInitialState,
   );
 
-  useEffect(() => {
-    dispatch({ type: 'set_audio_time', payload: 0 });
-  }, [audio, dispatch]);
-
-  useAudioElement(audio, state.audioElement, state.playing, dispatch);
+  useAudioContext(audio, state, dispatch);
 
   return (
     <PlayerContext.Provider value={{ ...state }}>
