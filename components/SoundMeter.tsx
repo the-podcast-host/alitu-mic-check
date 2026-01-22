@@ -14,7 +14,7 @@ const SoundMeter = ({ stream }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameIdRef = useRef<number>(0);
-  const audioDataRef = useRef<Uint8Array>();
+  const audioDataRef = useRef<Uint8Array<ArrayBuffer>>();
   const prevValueRef = useRef(0);
 
   const analyserNode = useAnalyserNode(stream);
